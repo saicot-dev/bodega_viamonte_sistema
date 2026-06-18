@@ -35,25 +35,26 @@ export function CobroDialog({
         onOpenChange(open)
       }}
     >
-      <DialogContent>
+      <DialogContent className="flex h-[60vh] w-[60vw] max-w-none flex-col p-10">
         <DialogHeader>
-          <DialogTitle>Cobrar pedido</DialogTitle>
+          <DialogTitle className="text-3xl">Cobrar pedido</DialogTitle>
         </DialogHeader>
 
-        <p className="text-sm text-muted-foreground">
+        <p className="text-lg text-muted-foreground">
           Total a cobrar:{" "}
-          <span className="text-base font-semibold text-foreground">
+          <span className="text-3xl font-bold text-foreground">
             {formatCurrency(total)}
           </span>
         </p>
 
-        <div>
-          <p className="mb-2 text-sm font-medium">Método de pago</p>
-          <div className="grid grid-cols-3 gap-2">
+        <div className="mt-4 flex flex-1 flex-col">
+          <p className="mb-4 text-lg font-medium">Método de pago</p>
+          <div className="grid flex-1 grid-cols-3 gap-4">
             {METODOS_PAGO.map((m) => (
               <Button
                 key={m.valor}
                 variant={metodo === m.valor ? "default" : "outline"}
+                className="h-full text-2xl"
                 onClick={() => setMetodo(m.valor)}
               >
                 {m.etiqueta}
@@ -63,7 +64,7 @@ export function CobroDialog({
         </div>
 
         <Button
-          className="w-full"
+          className="mt-6 h-16 w-full text-xl"
           disabled={!metodo || registrando}
           onClick={() => metodo && onConfirmar(metodo)}
         >
