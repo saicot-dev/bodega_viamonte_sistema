@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom"
 import type { Rol } from "@/features/auth/types"
 import { useRolActual, useSesion } from "@/features/auth/hooks/useSesion"
 import { homePorRol } from "@/features/auth/homePorRol"
-import { Skeleton } from "@/shared/components/ui/skeleton"
+import { PantallaCarga } from "@/shared/components/layout/PantallaCarga"
 
 type ProtectedRouteProps = {
   children: ReactNode
@@ -25,11 +25,7 @@ export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) 
   // Mientras se resuelve la sesión (o el rol, si la ruta lo exige) no decidimos
   // todavía: evita un parpadeo de redirect al login en cada recarga.
   if (cargandoSesion || (requiredRole && userId && cargandoRol)) {
-    return (
-      <div className="flex min-h-screen items-center justify-center p-4">
-        <Skeleton className="h-32 w-full max-w-sm" />
-      </div>
-    )
+    return <PantallaCarga />
   }
 
   if (!session) {

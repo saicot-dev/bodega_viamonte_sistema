@@ -1,4 +1,4 @@
-import { Wine } from "lucide-react"
+import { WineOff } from "lucide-react"
 
 import { cn } from "@/shared/utils/cn"
 
@@ -9,8 +9,8 @@ type SinImagenProps = {
 }
 
 /**
- * Placeholder elegante para productos sin foto: rayas diagonales sutiles en
- * tono dorado y una copa de vino tenue. Reemplaza el ícono de "imagen tachada".
+ * Placeholder para productos sin foto: rayas diagonales sutiles en tono dorado
+ * y una copa de vino tachada (sin imagen disponible).
  */
 export function SinImagen({ className, iconClassName }: SinImagenProps) {
   return (
@@ -25,7 +25,7 @@ export function SinImagen({ className, iconClassName }: SinImagenProps) {
       }}
       aria-hidden
     >
-      <Wine
+      <WineOff
         className={cn("text-primary/40", iconClassName ?? "h-10 w-10")}
         strokeWidth={1.25}
       />

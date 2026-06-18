@@ -6,5 +6,8 @@ dist/
 *.log
 .DS_Store
 
+# Archivos generados por el build de TypeScript
+*.tsbuildinfo
+
 # MCP config: contiene el Personal Access Token de Supabase — nunca commitear
 .mcp.json

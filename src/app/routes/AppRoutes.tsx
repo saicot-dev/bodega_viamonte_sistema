@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom"
 import { ProtectedRoute } from "@/app/routes/ProtectedRoute"
 import { RedirectHome } from "@/app/routes/RedirectHome"
 import { AppLayout } from "@/shared/components/layout/AppLayout"
-import { Skeleton } from "@/shared/components/ui/skeleton"
+import { PantallaCarga } from "@/shared/components/layout/PantallaCarga"
 
 const LoginPage = lazy(() =>
   import("@/features/auth/pages/LoginPage").then((m) => ({
@@ -37,17 +37,9 @@ const ClientesPage = lazy(() =>
   })),
 )
 
-function PaginaCargando() {
-  return (
-    <div className="flex min-h-screen items-center justify-center p-4">
-      <Skeleton className="h-32 w-full max-w-sm" />
-    </div>
-  )
-}
-
 export function AppRoutes() {
   return (
-    <Suspense fallback={<PaginaCargando />}>
+    <Suspense fallback={<PantallaCarga />}>
       <Routes>
         <Route path="/" element={<RedirectHome />} />
         <Route path="/auth/login" element={<LoginPage />} />

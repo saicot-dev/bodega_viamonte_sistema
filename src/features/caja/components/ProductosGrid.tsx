@@ -17,6 +17,16 @@ type ProductosGridProps = {
   altoCompleto?: boolean
   /** Modo carta (Clientes): tocar la tarjeta abre la descripción, sin botón. */
   abrirDescripcionAlTocar?: boolean
+  /** Cantidad de columnas. Menos columnas = tarjetas más grandes (tablet). */
+  columnas?: 3 | 4 | 5 | 6
+}
+
+// Clases fijas para que Tailwind las detecte (no interpolar dinámicamente).
+const COLS_CLASS: Record<3 | 4 | 5 | 6, string> = {
+  3: "grid-cols-3",
+  4: "grid-cols-4",
+  5: "grid-cols-5",
+  6: "grid-cols-6",
 }
 
 export function ProductosGrid({
@@ -24,13 +34,14 @@ export function ProductosGrid({
   cantidadEnPedido,
   altoCompleto = false,
   abrirDescripcionAlTocar = false,
+  columnas = 5,
 }: ProductosGridProps) {
   const { data: productos, isLoading, isError } = useProductos()
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-5 gap-4">
-        {Array.from({ length: 10 }).map((_, i) => (
+      <div className={cn("grid gap-4", COLS_CLASS[columnas])}>
+        {Array.from({ length: 8 }).map((_, i) => (
           <Skeleton key={i} className="h-72 w-full" />
         ))}
       </div>
@@ -56,8 +67,13 @@ export function ProductosGrid({
   return (
     <div
       className={cn(
-        "grid grid-cols-5 gap-4",
-        altoCompleto && "min-h-0 flex-1 auto-rows-fr overflow-y-auto",
+        "grid auto-rows-min content-start gap-4",
+        COLS_CLASS[columnas],
+        // En Caja: la grilla llena el alto disponible y scrollea hacia abajo si
+        // hay más filas de las que entran. auto-rows-min hace que cada fila tome
+        // el alto natural de las tarjetas (no se comprimen ni se superponen).
+        // El carrito queda fijo al lado (no scrollea).
+        altoCompleto && "min-h-0 flex-1 overflow-y-auto pr-1",
       )}
     >
       {productos.map((producto) => (

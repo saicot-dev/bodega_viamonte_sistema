@@ -76,6 +76,7 @@ export function CajaPage() {
           onAgregar={pedido.agregar}
           cantidadEnPedido={cantidadEnPedido}
           altoCompleto
+          columnas={4}
         />
       </section>
 
