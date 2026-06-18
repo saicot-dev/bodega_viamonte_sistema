@@ -1,0 +1,126 @@
+# Nuvvora Prompts — Flujo de desarrollo
+
+Prompts base para cada etapa del desarrollo. Reemplazar los valores entre [corchetes] antes de usar.
+
+---
+
+## 1. INICIO DE PROYECTO
+
+Usar una sola vez al arrancar un proyecto nuevo.
+
+```
+Vamos a desarrollar un sistema de gestión a medida para [NOMBRE DEL CLIENTE].
+
+Antes de escribir cualquier código, lee y respeta estrictamente estos documentos:
+@CLAUDE.md
+@ai-pmp/rules.txt
+@ai-pmp/frontend-rules.txt
+@ai-pmp/supabase-rules.txt
+@ai-pmp/error-handling.txt
+@ai-pmp/naming-rules.txt
+
+Tu única tarea en esta sesión:
+1. Crear la estructura base del proyecto (carpetas según rules.txt, configuración de Vite, Tailwind, shadcn, React Query, React Router)
+2. Crear la página de autenticación (/auth/login) con email y contraseña usando shadcn/ui y React Hook Form + Zod
+3. Crear un ProtectedRoute básico para proteger rutas futuras
+
+Restricciones:
+- NO conectar nada con Supabase todavía
+- NO crear ningún módulo ni página adicional
+- NO instalar dependencias fuera del stack definido en rules.txt
+- Al terminar, listar exactamente qué archivos creaste
+```
+
+---
+
+## 2. CONECTAR AUTH CON SUPABASE
+
+Usar cuando el proyecto ya está creado en Supabase y querés conectar el login. El MCP de Supabase debe estar conectado.
+
+```
+Perfecto, ahora vamos a conectar el auth con Supabase. Ya tenés conectado el MCP.
+
+Tareas:
+1. Conectar el formulario de login con Supabase auth
+2. Crear la tabla "user_roles" con los campos necesarios, su RLS propio (nadie puede
+   modificar su rol desde el cliente), la función tiene_rol() y el trigger
+   handle_new_user — todo según supabase-rules.txt
+3. Crear las RLS correspondientes
+4. Redirigir al dashboard tras login exitoso
+5. Manejar errores de credenciales incorrectas con toast destructive
+6. Al terminar, correr get_advisors del MCP y corregir cualquier alerta de seguridad
+
+No hace falta que expliques nada, ejecutá directamente.
+```
+
+---
+
+## 3. NUEVO MÓDULO
+
+Usar cada vez que arrancás un módulo nuevo. Completar las tres secciones: navegación, frontend y backend.
+
+```
+Ahora vamos a desarrollar una nueva página llamada "[NOMBRE DE LA PÁGINA]".
+Esta se encontrará en el navegador [debajo de / encima de / junto a] "[PÁGINA REFERENCIA]".
+
+Antes de empezar respeta los documentos:
+@CLAUDE.md
+@ai-pmp/rules.txt
+@ai-pmp/frontend-rules.txt
+@ai-pmp/supabase-rules.txt
+@ai-pmp/error-handling.txt
+@ai-pmp/naming-rules.txt
+
+Frontend: [Describir qué ve y qué puede hacer el usuario en esta página.
+Mencionar si hay tablas, formularios, cards, modales, flujos de pasos, etc.]
+
+Backend: [Describir las tablas necesarias con sus campos.
+Formato sugerido:
+- Tabla "[nombre_tabla]": campo1, campo2, campo3
+- Tabla "[nombre_tabla_2]": campo1, campo2 (referencia a tabla anterior)]
+
+Restricciones:
+- NO crear tablas adicionales a las mencionadas en Backend
+- NO avanzar a otro módulo
+- Las RLS las creás vos usando el MCP según los roles del sistema (con WITH CHECK
+  en escritura y usando la función tiene_rol)
+- Al terminar, correr get_advisors del MCP y corregir cualquier alerta de seguridad
+- Al terminar, listar qué archivos creaste o modificaste
+```
+
+---
+
+### Ejemplo real de cómo completarlo (Pinturería Rodeo — Módulo Ventas)
+
+```
+Ahora vamos a desarrollar una nueva página llamada "Ventas".
+Esta se encontrará en el navegador debajo de la página "Stock".
+
+Antes de empezar respeta los documentos:
+@CLAUDE.md
+@ai-pmp/rules.txt
+@ai-pmp/frontend-rules.txt
+@ai-pmp/supabase-rules.txt
+@ai-pmp/error-handling.txt
+@ai-pmp/naming-rules.txt
+
+Frontend: Al entrar deberá mostrar un estilo carrito de compra donde los productos
+que aparecerán los deberás sacar de la tabla "productos". Debajo estará la opción
+de agregar al carrito. Al tocar este botón se cargará un carrito con los productos
+donde se podrá editar cantidades, eliminar y finalizar compra. Luego mostrará una
+sección de métodos de pago y confirmar.
+
+Backend: Para esta página usaremos 2 tablas:
+- Tabla "ventas": id, numero_venta (generado por la base con GENERATED ALWAYS AS
+  IDENTITY, nunca por el cliente), nombre_cliente, metodo_pago
+- Tabla "items_venta": id, ventas_id (referencia a ventas), producto_id, cantidad,
+  valor (numeric(12,2))
+
+Restricciones:
+- NO crear tablas adicionales a las mencionadas
+- NO avanzar a otro módulo
+- Las RLS las creás vos usando el MCP según los roles del sistema (con WITH CHECK
+  en escritura y usando la función tiene_rol)
+- Al terminar, correr get_advisors del MCP y corregir cualquier alerta de seguridad
+- Al terminar, listar qué archivos creaste o modificaste
+```

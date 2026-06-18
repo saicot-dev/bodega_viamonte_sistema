@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Paleta Bodega Viamonte — fondo blanco, marrón/negro y dorado del logo.
+       Estética elegante y sobria. */
+    --background: 0 0% 100%; /* blanco */
+    --foreground: 25 30% 12%; /* marrón casi negro */
+
+    --card: 0 0% 100%; /* tarjetas blancas, se separan por el borde oscuro */
+    --card-foreground: 25 30% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 25 30% 12%;
+
+    --primary: 36 44% 40%; /* dorado/marrón del logo */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 38 28% 94%; /* arena muy suave para zonas activas */
+    --secondary-foreground: 25 30% 16%;
+
+    --muted: 40 20% 96%; /* gris cálido sutil para áreas/imágenes */
+    --muted-foreground: 28 14% 38%;
+
+    --accent: 36 40% 90%; /* dorado tenue para hovers */
+    --accent-foreground: 25 30% 14%;
+
+    --destructive: 0 65% 42%; /* bordó/rojo vino para errores */
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 25 28% 20%; /* contorno marrón muy oscuro (casi negro) */
+    --input: 25 22% 28%;
+    --ring: 36 44% 40%;
+
+    --radius: 0.375rem;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+  /* Títulos con la serif elegante (Cormorant Garamond) */
+  h1,
+  h2 {
+    @apply font-serif font-semibold;
+  }
+}
